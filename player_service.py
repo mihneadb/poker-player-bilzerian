@@ -39,6 +39,8 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
             response = Player().betRequest(game_state)
         elif action == 'showdown':
             Player().showdown(game_state)
+        elif action == 'version':
+            Player.VERSION
 
         self.wfile.write(response)
 
