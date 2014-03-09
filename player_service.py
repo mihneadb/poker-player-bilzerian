@@ -40,7 +40,7 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
         elif action == 'showdown':
             Player().showdown(game_state)
         elif action == 'version':
-            Player.VERSION
+            response = Player.VERSION
 
         self.wfile.write(response)
 
