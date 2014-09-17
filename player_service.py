@@ -5,7 +5,7 @@ import BaseHTTPServer
 from player import Player
 
 
-HOST_NAME = '0.0.0.0    '
+HOST_NAME = '0.0.0.0'
 PORT_NUMBER = 9000
 
 
