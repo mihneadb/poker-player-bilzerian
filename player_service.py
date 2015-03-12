@@ -2,11 +2,12 @@ import time
 import cgi
 import json
 import BaseHTTPServer
+import os
 from player import Player
 
 
 HOST_NAME = '0.0.0.0'
-PORT_NUMBER = 9000
+PORT_NUMBER = os.environ.has_key('PORT') and int(os.environ['PORT']) or 9000
 
 
 class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -28,7 +29,7 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
 
         action = postvars['action'][0]
 
-        if 'game_state' in postvars: 
+        if 'game_state' in postvars:
             game_state = json.loads(postvars['game_state'][0])
         else:
             game_state = {}
