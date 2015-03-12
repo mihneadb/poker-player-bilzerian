@@ -1,0 +1,1 @@
+web: python player_service.py
