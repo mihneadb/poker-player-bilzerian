@@ -13,13 +13,11 @@ class Player:
     def betRequest(self, game_state):
         me = game_state['in_action']
 
-        print self.rank_cards(me, game_state)
-
         bet = 0
         if (not game_state['community_cards']) and self._should_call(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
 
-        else:
+        elif game_state['community_cards']:
             factor = self.should_raise(me, game_state)
             bet = (game_state['current_buy_in'] -
                    game_state['players'][me]['bet'])
