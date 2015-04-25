@@ -18,8 +18,8 @@ class Player:
 
         cards = game_state['players'][me]['hole_cards']
 
-        rank0 = self._value_from_rank(cards[0]['rank'])
-        rank1 = self._value_from_rank(cards[1]['rank'])
+        rank0 = cards[0]['rank']
+        rank1 = cards[1]['rank']
 
         if (rank0 in BIG_CARDS) and (rank1 in BIG_CARDS):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
