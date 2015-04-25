@@ -28,6 +28,8 @@ class Player:
             size = len(game_state['community_cards'])
             if size == game_data['last_size'] and game_data['num_raises'] == 3:
                 bet = 0
+                game_data['num_raises'] = 0
+                self.set_game_data(game_state, game_data)
 
             elif size == game_data['last_size']:
                 bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
