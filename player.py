@@ -6,7 +6,7 @@ import requests
 
 SUM_CALL_LIMIT = 19
 FACTOR_LIMIT = 1
-BIG_CARDS = ['J', 'Q', 'K', 'A']
+BIG_CARDS = [10, '10', 'J', 'Q', 'K', 'A']
 
 class Player:
     VERSION = "More sum"
