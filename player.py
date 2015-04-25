@@ -18,6 +18,11 @@ class Player:
         if self._is_high_pair(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
             bet += 2 * game_state['minimum_raise']
+        else:
+            to_check = game_state['current_buy_in'] - game_state['players'][me]['bet']
+            if to_check < (game_state['players'][me]['stack'] / 2.0):
+                bet = to_check
+
 
 
         #if (not game_state['community_cards']) and self._should_call(me, game_state):
