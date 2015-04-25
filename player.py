@@ -28,7 +28,10 @@ class Player:
                 bet += game_state['minimum_raise']
                 bet += factor * (game_state['minimum_raise'] / 5)
 
-            if factor <= FACTOR_LIMIT and len(game_state['community_cards']) == 3:
+            if factor is 0 and len(game_state['community_cards']) == 3:
+                bet = 0
+
+            if factor <= FACTOR_LIMIT and len(game_state['community_cards']) > 3:
                 bet = 0
 
         bet = int(bet)
