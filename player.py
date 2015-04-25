@@ -15,12 +15,19 @@ class Player:
         print self.rank_cards(me, game_state)
 
         bet = 0
-        if self._should_call(me, game_state):
+        if (not game_state['community_cards']) and self._should_call(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
 
-        if (self.should_raise(me, game_state)):
+        else:
+            factor = self.should_raise(me, game_state)
             bet = (game_state['current_buy_in'] -
-                  game_state['players'][me]['bet'] + game_state['minimum_raise'])
+                   game_state['players'][me]['bet'])
+
+            if factor:
+                bet += game_state['minimum_raise']
+                bet += factor * (game_state['minimum_raise'] / 5)
+
+        bet = int(bet)
 
         print "Betting: %s" % bet
         return bet
@@ -41,10 +48,10 @@ class Player:
     def should_raise(self, me, game_state):
         rank_data = self.rank_cards(me, game_state)
         if rank_data == "":
-            return False
+            return 0
         if rank_data['rank'] >= 2:
-            return True
-        return False
+            return rank_data['rank']
+        return 0
 
     def _should_call(self, me, game_state):
         cards = game_state['players'][me]['hole_cards']
