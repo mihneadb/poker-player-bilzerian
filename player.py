@@ -31,7 +31,7 @@ class Player:
             #bet = (game_state['current_buy_in'] -
                    #game_state['players'][me]['bet'])
 
-            #if bet > (game_state['players'][me]['stack'] / 2.0):
+            #if (factor < 2) and (bet > (game_state['players'][me]['stack'] / 2.0)):
                 #return 0
 
             #if factor > FACTOR_LIMIT:
