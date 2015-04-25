@@ -17,10 +17,16 @@ class Player:
         if (not game_state['community_cards']) and self._should_call(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
 
+            if bet > (game_state['players'][me]['stack'] / 2.0):
+                return 0
+
         elif game_state['community_cards']:
             factor = self.should_raise(me, game_state)
             bet = (game_state['current_buy_in'] -
                    game_state['players'][me]['bet'])
+
+            if bet > (game_state['players'][me]['stack'] / 2.0):
+                return 0
 
             if factor > FACTOR_LIMIT:
                 bet += game_state['minimum_raise']
@@ -34,7 +40,6 @@ class Player:
 
         bet = int(bet)
 
-        print "Betting: %s" % bet
         return bet
 
     def rank_cards(self, me, game_state):
