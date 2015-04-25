@@ -22,8 +22,27 @@ class Player:
         rank1 = cards[1]['rank']
 
         if ((rank0 in BIG_CARDS) and (rank1 in BIG_CARDS)) or self._is_high_pair(me, game_state):
-            bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
-            bet += game_state['minimum_raise']
+            game_data = self.get_game_data(game_state)
+            print game_data
+            print "------------------------------------"
+            size = len(game_state['community_cards'])
+            if size == game_data['last_size'] and game_data['num_raises'] == 3:
+                bet = 0
+
+            elif size == game_data['last_size']:
+                bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
+                bet += game_state['minimum_raise']
+
+                game_data['num_raises'] += 1
+                self.set_game_data(game_state, game_data)
+
+            else:
+                bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
+                bet += game_state['minimum_raise']
+
+                game_data['num_raises'] = 1
+                game_data['last_size'] = size
+                self.set_game_data(game_state, game_data)
 
         bet = int(bet)
 
@@ -84,4 +103,23 @@ class Player:
         if rank0 == rank1 and rank0 > 6:
             return True
         return False
+
+    def get_game_data(self, game_state):
+        name = 'game_%s' % game_state['game_id']
+        try:
+            f = open(name, 'r')
+            data = json.load(f)
+            f.close()
+            return data
+        except:
+            return {"last_size": 0, "num_raises": 0}
+
+    def set_game_data(self, game_state, game_data):
+        name = 'game_%s' % game_state['game_id']
+        try:
+            f = open(name, 'w')
+            json.dump(game_data, f)
+            f.close()
+        except:
+            pass
 
