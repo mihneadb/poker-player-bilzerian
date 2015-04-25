@@ -21,7 +21,7 @@ class Player:
         rank0 = cards[0]['rank']
         rank1 = cards[1]['rank']
 
-        if (rank0 in BIG_CARDS) and (rank1 in BIG_CARDS):
+        if ((rank0 in BIG_CARDS) and (rank1 in BIG_CARDS)) or self._is_high_pair(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
             bet += game_state['minimum_raise']
 
@@ -81,7 +81,7 @@ class Player:
 
         rank0 = self._value_from_rank(cards[0]['rank'])
         rank1 = self._value_from_rank(cards[1]['rank'])
-        if rank0 == rank1 and rank0 > 9:
+        if rank0 == rank1 and rank0 > 6:
             return True
         return False
 
