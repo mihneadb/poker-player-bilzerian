@@ -1,7 +1,6 @@
 import json
 import subprocess
 
-import requests
 
 
 SUM_CALL_LIMIT = 19
