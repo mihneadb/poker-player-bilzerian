@@ -4,10 +4,10 @@ import subprocess
 import requests
 
 
-SUM_CALL_LIMIT = 16
+SUM_CALL_LIMIT = 19
 
 class Player:
-    VERSION = "Bet me maybe"
+    VERSION = "More sum"
 
     def betRequest(self, game_state):
         me = game_state['in_action']
