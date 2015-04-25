@@ -26,3 +26,9 @@ class Player:
     def showdown(self, game_state):
         pass
 
+    def should_raise(self, me, game_state):
+        rank_data = self.rank_cards(me, game_state)
+        if rank_data['rank'] >= 2:
+            return True
+        return False
+
