@@ -80,12 +80,13 @@ class Player:
         rank0 = self._value_from_rank(cards[0]['rank'])
         rank1 = self._value_from_rank(cards[1]['rank'])
         if rank0 == rank1:
-            return True
-        if abs(rank0 - rank1) == 1:
-            return True
+            return rank0
 
         sum = rank0 + rank1
-        return sum > SUM_CALL_LIMIT
+        if sum > SUM_CALL_LIMIT:
+            return 1
+
+        return 0
 
     def _value_from_rank(self, rank):
         if rank == 'J':
