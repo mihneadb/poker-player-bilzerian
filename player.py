@@ -27,7 +27,7 @@ class Player:
                 bet += game_state['minimum_raise']
                 bet += factor * (game_state['minimum_raise'] / 5)
 
-            if factor is 0 and len(game_state['community_cards']) == 5:
+            if factor is 0 and len(game_state['community_cards']) == 3:
                 bet = 0
 
         bet = int(bet)
@@ -62,8 +62,6 @@ class Player:
         rank0 = self._value_from_rank(cards[0]['rank'])
         rank1 = self._value_from_rank(cards[1]['rank'])
         if rank0 == rank1:
-            return True
-        if cards[0]['suit'] == cards[1]['suit']:
             return True
         if abs(rank0 - rank1) == 1:
             return True
