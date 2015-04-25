@@ -9,7 +9,7 @@ FACTOR_LIMIT = 1
 BIG_CARDS = [10, '10', 'J', 'Q', 'K', 'A']
 
 class Player:
-    VERSION = "More sum"
+    VERSION = "More sum and raise"
 
     def betRequest(self, game_state):
         me = game_state['in_action']
@@ -27,7 +27,10 @@ class Player:
             print "------------------------------------"
             size = len(game_state['community_cards'])
             if size == game_data['last_size'] and game_data['num_raises'] == 3:
-                bet = 0
+                if size == 0:
+                    bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
+                else:
+                    bet = 0
                 game_data['num_raises'] = 0
                 self.set_game_data(game_state, game_data)
 
