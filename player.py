@@ -14,29 +14,35 @@ class Player:
         me = game_state['in_action']
 
         bet = 0
-        if (not game_state['community_cards']) and self._should_call(me, game_state):
+
+        if self._is_high_pair(me, game_state):
             bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
+            bet += 2 * game_state['minimum_raise']
 
-            if bet > (game_state['players'][me]['stack'] / 2.0):
-                return 0
 
-        elif game_state['community_cards']:
-            factor = self.should_raise(me, game_state)
-            bet = (game_state['current_buy_in'] -
-                   game_state['players'][me]['bet'])
+        #if (not game_state['community_cards']) and self._should_call(me, game_state):
+            #bet = game_state['current_buy_in'] - game_state['players'][me]['bet']
 
-            if bet > (game_state['players'][me]['stack'] / 2.0):
-                return 0
+            #if bet > (game_state['players'][me]['stack'] / 2.0):
+                #return 0
 
-            if factor > FACTOR_LIMIT:
-                bet += game_state['minimum_raise']
-                bet += factor * (game_state['minimum_raise'] / 5)
+        #elif game_state['community_cards']:
+            #factor = self.should_raise(me, game_state)
+            #bet = (game_state['current_buy_in'] -
+                   #game_state['players'][me]['bet'])
 
-            if factor is 0 and len(game_state['community_cards']) == 3:
-                bet = 0
+            #if bet > (game_state['players'][me]['stack'] / 2.0):
+                #return 0
 
-            if factor <= FACTOR_LIMIT and len(game_state['community_cards']) > 3:
-                bet = 0
+            #if factor > FACTOR_LIMIT:
+                #bet += game_state['minimum_raise']
+                #bet += factor * (game_state['minimum_raise'] / 5)
+
+            #if factor is 0 and len(game_state['community_cards']) == 3:
+                #bet = 0
+
+            #if factor <= FACTOR_LIMIT and len(game_state['community_cards']) > 3:
+                #bet = 0
 
         bet = int(bet)
 
@@ -87,3 +93,13 @@ class Player:
             return 15
 
         return int(rank)
+
+    def _is_high_pair(self, me, game_state):
+        cards = game_state['players'][me]['hole_cards']
+
+        rank0 = self._value_from_rank(cards[0]['rank'])
+        rank1 = self._value_from_rank(cards[1]['rank'])
+        if rank0 == rank1 and rank0 > 9:
+            return True
+        return False
+
